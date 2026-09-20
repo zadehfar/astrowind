@@ -96,11 +96,25 @@ const persistKey = `header-${Array.from(
         </div>
       </div>
       <nav
-        class="items-center w-full lg:w-auto hidden lg:flex lg:mx-5 text-default overflow-y-auto overflow-x-hidden lg:overflow-visible lg:justify-self-center"
+        class="fixed inset-y-0 left-0 z-50 flex w-80 max-w-[85vw] -translate-x-full transform flex-col bg-page p-6 text-default shadow-xl transition-transform duration-300 ease-in-out hidden lg:static lg:z-auto lg:flex lg:w-auto lg:max-w-none lg:translate-x-0 lg:transform-none lg:bg-transparent lg:p-0 lg:shadow-none lg:transition-none lg:mx-5 lg:overflow-visible lg:justify-self-center"
         aria-label="Main navigation"
+        data-aw-sidebar
       >
+        <div class="mb-6 flex items-center justify-between lg:hidden">
+          <span class="text-lg font-semibold text-heading">Menu</span>
+          <button
+            type="button"
+            class="rounded-lg p-2 text-muted transition hover:bg-gray-100 hover:text-heading focus:outline-none focus:ring-2 focus:ring-primary dark:hover:bg-gray-800"
+            aria-label="Close menu"
+            data-aw-close-menu
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-6 w-6 fill-none stroke-current stroke-2">
+              <path d="m6 6 12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </div>
         <ul
-          class="flex flex-col lg:flex-row lg:self-center w-full lg:w-auto text-xl lg:text-[0.9375rem] tracking-[0.01rem] font-medium lg:justify-center"
+          class="flex w-full flex-col text-xl font-medium tracking-[0.01rem] lg:w-auto lg:flex-row lg:self-center lg:justify-center lg:text-[0.9375rem]"
         >
           {
             links.map(({ text, href, links }) => (
@@ -149,6 +163,11 @@ const persistKey = `header-${Array.from(
           }
         </ul>
       </nav>
+      <button
+        type="button"
+        class="fixed inset-0 z-40 hidden bg-black/40 opacity-0 transition-opacity duration-300 lg:hidden"
+        aria-label="Close menu"
+        data-aw-menu-overlay></button>
       <div
         class:list={[
           { 'ml-auto rtl:ml-0 rtl:mr-auto': position === 'left' },
@@ -207,6 +226,8 @@ const persistKey = `header-${Array.from(
       const header = this.querySelector<HTMLElement>('#header');
       const toggle = this.querySelector<HTMLElement>('[data-aw-toggle-menu]');
       const nav = this.querySelector<HTMLElement>('#header nav');
+      const close = this.querySelector<HTMLElement>('[data-aw-close-menu]');
+      const overlay = this.querySelector<HTMLElement>('[data-aw-menu-overlay]');
       const lastChild = this.querySelector<HTMLElement>('#header > div > div:last-child');
 
       // The header persists across view transitions (transition:persist), so
@@ -221,6 +242,11 @@ const persistKey = `header-${Array.from(
         document.body.classList.remove('overflow-hidden');
         header?.classList.remove('h-screen', 'expanded', 'bg-page');
         nav?.classList.add('hidden');
+        nav?.classList.remove('translate-x-0');
+        nav?.classList.add('-translate-x-full');
+        overlay?.classList.add('hidden');
+        overlay?.classList.remove('opacity-100');
+        overlay?.classList.add('opacity-0');
         lastChild?.classList.add('hidden');
       };
 
@@ -233,8 +259,15 @@ const persistKey = `header-${Array.from(
         header?.classList.toggle('expanded');
         header?.classList.toggle('bg-page');
         nav?.classList.toggle('hidden');
+        nav?.classList.toggle('-translate-x-full', !expanded);
+        nav?.classList.toggle('translate-x-0', expanded);
+        overlay?.classList.toggle('hidden', !expanded);
+        requestAnimationFrame(() => overlay?.classList.toggle('opacity-100', expanded));
         lastChild?.classList.toggle('hidden');
       });
+
+      close?.addEventListener('click', closeMenu);
+      overlay?.addEventListener('click', closeMenu);
 
       // Close the mobile menu when a nav link is clicked.
       nav?.addEventListener('click', closeMenu);
