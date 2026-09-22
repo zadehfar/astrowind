@@ -87,7 +87,7 @@ const persistKey = `header-${Array.from(
         },
       ]}
     >
-      <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between']}>
+      <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between lg:hidden']}>
         <a class="flex items-center" href={getHomePermalink()}>
           <Logo />
         </a>
@@ -97,7 +97,7 @@ const persistKey = `header-${Array.from(
       </div>
       <nav
         id={`${id}-nav`}
-        class="fixed inset-y-0 left-0 z-50 flex w-80 max-w-[85vw] -translate-x-full transform pointer-events-none flex-col bg-page p-6 text-default shadow-xl transition-transform duration-300 ease-in-out lg:pointer-events-auto lg:static lg:z-auto lg:w-auto lg:max-w-none lg:translate-x-0 lg:transform-none lg:bg-transparent lg:p-0 lg:shadow-none lg:transition-none lg:mx-5 lg:overflow-visible lg:justify-self-center"
+        class="fixed inset-y-0 left-0 z-50 flex w-80 max-w-[85vw] -translate-x-full transform pointer-events-none flex-col bg-page p-6 text-default shadow-xl transition-transform duration-300 ease-in-out lg:pointer-events-auto lg:static lg:z-auto lg:w-full lg:max-w-none lg:translate-x-0 lg:transform-none lg:bg-transparent lg:p-0 lg:shadow-none lg:transition-none lg:mx-0 lg:overflow-visible lg:justify-self-start"
         aria-label="Main navigation"
         aria-hidden="false"
         data-aw-sidebar
@@ -152,7 +152,7 @@ const persistKey = `header-${Array.from(
                 ) : (
                   <a
                     class:list={[
-                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap lg:justify-start lg:rounded-none lg:p-0 lg:font-normal lg:text-[1.7rem] lg:leading-none lg:tracking-[-0.04em] lg:text-white/90 lg:hover:text-white lg:py-3',
                       { 'aw-link-active': isActive(href) },
                     ]}
                     href={href}
@@ -211,6 +211,110 @@ const persistKey = `header-${Array.from(
 <style>
   aw-header {
     display: contents;
+  }
+
+  @media (min-width: 1024px) {
+    aw-header header {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(28rem, 32vw);
+      min-width: 18rem;
+      height: 100vh;
+      background: linear-gradient(180deg, #0d5e9c 0%, #0c4d82 100%);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+      z-index: 40;
+    }
+
+    aw-header header > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    aw-header header > div > div:first-child {
+      display: none;
+    }
+
+    aw-header nav {
+      position: static;
+      width: 100%;
+      max-width: none;
+      transform: none;
+      pointer-events: auto;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-top: 2rem;
+    }
+
+    aw-header nav ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    aw-header nav li {
+      width: 100%;
+    }
+
+    aw-header nav a,
+    aw-header nav button {
+      width: 100%;
+      justify-content: flex-start;
+      padding: 0.15rem 0 !important;
+      font-size: clamp(1.2rem, 2vw, 2.2rem);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+      text-align: left;
+      transition: opacity 0.2s ease;
+    }
+
+    aw-header nav a:hover,
+    aw-header nav button:hover,
+    aw-header nav a.aw-link-active {
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    aw-header nav a.aw-link-active {
+      position: relative;
+      padding-left: 0.75rem !important;
+    }
+
+    aw-header nav a.aw-link-active::before {
+      content: '';
+      position: absolute;
+      left: -0.75rem;
+      top: 0.2rem;
+      width: 0.25rem;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+    }
+
+    aw-header nav li.dropdown {
+      display: none;
+    }
+
+    aw-header [data-aw-menu-overlay],
+    aw-header [data-aw-close-menu],
+    aw-header .lg:hidden {
+      display: none !important;
+    }
+
+    aw-header header > div > div:last-child {
+      position: static;
+      display: none;
+    }
   }
 </style>
 
