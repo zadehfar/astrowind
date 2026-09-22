@@ -170,6 +170,60 @@ const persistKey = `header-${Array.from(
         class="fixed inset-0 z-40 hidden bg-black/40 opacity-0 transition-opacity duration-300 lg:hidden"
         aria-label="Close menu"
         data-aw-menu-overlay></button>
+      <button
+        type="button"
+        class="fixed right-6 top-6 z-[60] hidden h-16 w-16 items-center justify-center bg-white text-slate-900 shadow-lg transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white lg:flex"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls={`${id}-right-menu`}
+        data-aw-right-toggle
+      >
+        <span class="sr-only">Open menu</span>
+        <Icon name="tabler:menu-2" class="h-7 w-7" />
+      </button>
+      <aside
+        id={`${id}-right-menu`}
+        class="fixed inset-y-0 right-0 z-50 w-full max-w-md translate-x-full bg-[#0d5e9c] p-8 text-white shadow-2xl transition-transform duration-300 ease-in-out"
+        aria-label="Site menu"
+        aria-hidden="true"
+        data-aw-right-menu
+      >
+        <div class="flex items-center justify-between">
+          <span class="text-2xl font-semibold">Menu</span>
+          <button
+            type="button"
+            class="flex h-12 w-12 items-center justify-center bg-white text-slate-900 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Close menu"
+            data-aw-right-close
+          >
+            <Icon name="tabler:x" class="h-6 w-6" />
+          </button>
+        </div>
+        <nav class="mt-16" aria-label="Expanded site menu">
+          <ul class="space-y-7">
+            {
+              links.map(({ text, href }) => (
+                <li>
+                  <a
+                    class:list={[
+                      'block text-3xl font-medium tracking-tight text-white/90 transition hover:translate-x-2 hover:text-white',
+                      { 'text-white': isActive(href) },
+                    ]}
+                    href={href}
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </aside>
+      <button
+        type="button"
+        class="fixed inset-0 z-40 hidden bg-slate-950/50 opacity-0 transition-opacity duration-300"
+        aria-label="Close expanded menu"
+        data-aw-right-overlay></button>
       <div
         class:list={[
           { 'ml-auto rtl:ml-0 rtl:mr-auto': position === 'left' },
@@ -315,6 +369,10 @@ const persistKey = `header-${Array.from(
       position: static;
       display: none;
     }
+
+    aw-header [data-aw-right-toggle] {
+      display: flex !important;
+    }
   }
 </style>
 
@@ -335,6 +393,10 @@ const persistKey = `header-${Array.from(
       const close = this.querySelector<HTMLElement>('[data-aw-close-menu]');
       const overlay = this.querySelector<HTMLElement>('[data-aw-menu-overlay]');
       const lastChild = this.querySelector<HTMLElement>('header > div > div:last-child');
+      const rightToggle = this.querySelector<HTMLElement>('[data-aw-right-toggle]');
+      const rightMenu = this.querySelector<HTMLElement>('[data-aw-right-menu]');
+      const rightClose = this.querySelector<HTMLElement>('[data-aw-right-close]');
+      const rightOverlay = this.querySelector<HTMLElement>('[data-aw-right-overlay]');
       const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
 
       // The header persists across view transitions (transition:persist), so
@@ -383,6 +445,34 @@ const persistKey = `header-${Array.from(
 
       // Close the mobile menu when a nav link is clicked.
       nav?.addEventListener('click', closeMenu);
+
+      const closeRightMenu = () => {
+        rightToggle?.setAttribute('aria-expanded', 'false');
+        rightMenu?.setAttribute('aria-hidden', 'true');
+        rightMenu?.classList.add('translate-x-full');
+        rightMenu?.classList.remove('translate-x-0');
+        rightOverlay?.classList.add('hidden');
+        rightOverlay?.classList.remove('opacity-100');
+        rightOverlay?.classList.add('opacity-0');
+        document.body.classList.remove('overflow-hidden');
+      };
+
+      const openRightMenu = () => {
+        rightToggle?.setAttribute('aria-expanded', 'true');
+        rightMenu?.setAttribute('aria-hidden', 'false');
+        rightMenu?.classList.remove('translate-x-full');
+        rightMenu?.classList.add('translate-x-0');
+        rightOverlay?.classList.remove('hidden');
+        requestAnimationFrame(() => rightOverlay?.classList.add('opacity-100'));
+        document.body.classList.add('overflow-hidden');
+      };
+
+      rightToggle?.addEventListener('click', openRightMenu);
+      rightClose?.addEventListener('click', closeRightMenu);
+      rightOverlay?.addEventListener('click', closeRightMenu);
+      rightMenu?.addEventListener('click', (event) => {
+        if ((event.target as HTMLElement).closest('a')) closeRightMenu();
+      });
 
       // Desktop dropdowns open on hover/`:focus-within`. When a dropdown link is
       // clicked it keeps focus, and because the header uses `transition:persist`
