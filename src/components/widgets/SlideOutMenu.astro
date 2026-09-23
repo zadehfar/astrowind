@@ -17,7 +17,7 @@ const nestedLinks = links.filter((link) => link.links?.length);
   <div class="fixed inset-0 z-50 hidden bg-slate-950/50 opacity-0 transition-opacity duration-300" data-menu-backdrop>
   </div>
   <aside
-    class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-5xl translate-x-full flex-col bg-[#f2f0e9] text-slate-900 shadow-2xl transition-transform duration-300 ease-in-out"
+    class="fixed inset-y-0 left-0 z-[60] flex w-full max-w-5xl -translate-x-full flex-col bg-[#f2f0e9] text-slate-900 shadow-2xl transition-transform duration-300 ease-in-out"
     aria-label="Expanded site menu"
     aria-hidden="true"
     data-menu-panel
@@ -132,7 +132,7 @@ const nestedLinks = links.filter((link) => link.links?.length);
       const categories = this.querySelectorAll<HTMLElement>('[data-menu-category]');
       const contents = this.querySelectorAll<HTMLElement>('[data-menu-content]');
       const closeMenu = () => {
-        panel?.classList.add('translate-x-full');
+        panel?.classList.add('-translate-x-full');
         panel?.classList.remove('translate-x-0');
         panel?.setAttribute('aria-hidden', 'true');
         backdrop?.classList.add('hidden');
@@ -142,7 +142,7 @@ const nestedLinks = links.filter((link) => link.links?.length);
       };
 
       const openMenu = (category?: string) => {
-        panel?.classList.remove('translate-x-full');
+        panel?.classList.remove('-translate-x-full');
         panel?.classList.add('translate-x-0');
         panel?.setAttribute('aria-hidden', 'false');
         backdrop?.classList.remove('hidden');
