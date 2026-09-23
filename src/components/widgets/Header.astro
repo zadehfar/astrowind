@@ -1,8 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
-import Button from '~/components/ui/Button.astro';
 import SlideOutMenu from '~/components/widgets/SlideOutMenu.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
@@ -64,8 +62,11 @@ const persistKey = `header-${Array.from(
         { 'max-w-7xl': !isFullWidth },
       ]}
     >
-      <a class="flex items-center" href={getHomePermalink()}>
-        <Logo />
+      <a
+        class="text-2xl font-bold tracking-tight text-gray-900 transition hover:text-gray-700 dark:text-white dark:hover:text-gray-200"
+        href={getHomePermalink()}
+      >
+        Savalan Institute
       </a>
       <nav class="hidden flex-1 justify-center lg:flex" aria-label="Main navigation">
         <ul class="flex items-center gap-8">
@@ -77,7 +78,7 @@ const persistKey = `header-${Array.from(
                   {children?.length ? (
                     <button
                       type="button"
-                      class="px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white"
+                      class="rounded-md px-3 py-2 text-lg font-medium transition duration-200 hover:bg-gray-200/50 hover:text-link dark:hover:bg-gray-700/50 dark:hover:text-white"
                       data-menu-category-trigger={text}
                     >
                       {text}
@@ -85,7 +86,7 @@ const persistKey = `header-${Array.from(
                   ) : (
                     <a
                       class:list={[
-                        'px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white',
+                        'rounded-md px-3 py-2 text-lg font-medium transition duration-200 hover:bg-gray-200/50 hover:text-link dark:hover:bg-gray-700/50 dark:hover:text-white',
                         { 'aw-link-active': isActive(href) },
                       ]}
                       href={href}
@@ -120,15 +121,6 @@ const persistKey = `header-${Array.from(
         >
           <Icon name="tabler:menu-2" class="h-6 w-6" />
         </button>
-        {
-          actions?.length ? (
-            <span class="hidden lg:inline-flex">
-              {actions.map((btnProps) => (
-                <Button {...btnProps} class="ml-2 py-2.5 px-5.5 font-semibold shadow-none text-sm" />
-              ))}
-            </span>
-          ) : null
-        }
       </div>
     </div>
   </header>
