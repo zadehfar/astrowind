@@ -1,215 +1,117 @@
----
-import mountainImage from '~/assets/images/savalan-mountain.jpg';
+<section
+  class="relative isolate min-h-[min(820px,100svh)] overflow-hidden bg-slate-950"
+  aria-labelledby="mountain-hero-title"
+  data-mountain-hero
+>
+  <video
+    class="absolute inset-0 z-0 h-full w-full object-cover pointer-events-none"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    aria-hidden="true"
+  >
+    <source src="/assets/videos/hero-bg.mp4" type="video/mp4" />
+  </video>
 
-export interface Props {
-  image?: string;
-}
+  <div class="absolute inset-0 z-10 bg-black/40" aria-hidden="true"></div>
 
-const { image = mountainImage.src } = Astro.props;
----
+  <div
+    class="relative z-20 grid min-h-[min(820px,100svh)] place-items-center px-6 pb-16 pt-28 text-center font-sans text-white"
+  >
+    <div class="relative grid w-full place-items-center">
+      <div class="absolute inset-0 grid place-items-center" aria-live="polite">
+        <p
+          class="pointer-events-none opacity-0 transition-opacity duration-700 ease-in-out text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl"
+          data-hero-phase
+        >
+          Define Problem
+        </p>
+        <p
+          class="pointer-events-none col-start-1 row-start-1 opacity-0 transition-opacity duration-700 ease-in-out text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl"
+          data-hero-phase
+        >
+          Exercise Leadership
+        </p>
+        <p
+          class="pointer-events-none col-start-1 row-start-1 opacity-0 transition-opacity duration-700 ease-in-out text-4xl font-semibold tracking-tight sm:text-5xl md:text-7xl"
+          data-hero-phase
+        >
+          Create Impact
+        </p>
+      </div>
 
-<section class="mountain-hero" aria-labelledby="mountain-hero-title" data-mountain-hero>
-  <img
-    class="mountain-hero__image"
-    src={image}
-    alt="Snow-covered mountains above a green valley"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <div class="mountain-hero__shade" aria-hidden="true"></div>
-  <div class="mountain-hero__content">
-    <div class="mountain-hero__sequence" aria-live="polite">
-      <p class="mountain-hero__phase" data-hero-phase>Define Problem</p>
-    </div>
-    <div class="mountain-hero__final" data-hero-final>
-      <p class="mountain-hero__welcome">Welcome to</p>
-      <h1 class="mountain-hero__title" id="mountain-hero-title">Savalan Institute</h1>
-      <p class="mountain-hero__join" data-hero-join>Join us</p>
+      <div class="text-shadow-lg opacity-0 transition-opacity duration-700 ease-in-out" data-hero-final>
+        <p class="text-2xl font-light tracking-wide md:text-3xl">Welcome to</p>
+        <h1 class="my-2 text-5xl font-extrabold tracking-tight md:text-7xl" id="mountain-hero-title">
+          Savalan Institute
+        </h1>
+        <p class="text-2xl font-medium tracking-wide md:text-3xl" data-hero-join>Join US</p>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .mountain-hero {
-    position: relative;
-    min-height: min(820px, 100svh);
-    overflow: hidden;
-    isolation: isolate;
-    background: #193848;
-  }
-
-  .mountain-hero__image,
-  .mountain-hero__shade {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .mountain-hero__image {
-    z-index: -2;
-    object-fit: cover;
-    object-position: center center;
-    animation: mountain-hero-drift 18s ease-out both;
-  }
-
-  .mountain-hero__shade {
-    z-index: -1;
-    background: linear-gradient(180deg, rgba(5, 27, 42, 0.28), rgba(5, 27, 42, 0.38));
-  }
-
-  .mountain-hero__content {
-    display: grid;
-    min-height: min(820px, 100svh);
-    place-items: center;
-    padding: 7rem 1.5rem 4rem;
-    color: white;
-    text-align: center;
-    font-family: Montserrat, Inter, ui-sans-serif, system-ui, sans-serif;
-  }
-
-  .mountain-hero__sequence,
-  .mountain-hero__final {
-    grid-area: 1 / 1;
-  }
-
-  .mountain-hero__sequence {
-    width: min(90vw, 70rem);
-  }
-
-  .mountain-hero__phase,
-  .mountain-hero__final {
-    margin: 0;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
-  }
-
-  .mountain-hero__phase {
-    font-size: clamp(2.5rem, 6vw, 6rem);
-    font-weight: 600;
-    letter-spacing: -0.045em;
-    opacity: 0;
+  [data-mountain-hero] [data-hero-final] {
     transform: translateY(0.75rem);
+    text-shadow: 0 2px 18px rgb(0 0 0 / 28%);
   }
 
-  .mountain-hero__final {
-    font-size: clamp(1.25rem, 2.8vw, 2.6rem);
-    font-weight: 600;
-    line-height: 1.08;
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-
-  .mountain-hero__final p {
-    margin: 0;
-  }
-
-  .mountain-hero__welcome,
-  .mountain-hero__title,
-  .mountain-hero__join {
-    opacity: 0;
-    transform: translateY(0.5rem);
-    transition:
-      opacity 500ms ease,
-      transform 500ms ease;
-  }
-
-  .mountain-hero.is-final .mountain-hero__welcome,
-  .mountain-hero.is-final .mountain-hero__title {
+  [data-mountain-hero].is-final [data-hero-final] {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .mountain-hero.is-final .mountain-hero__join.join-visible {
-    opacity: 1;
-    transform: translateY(0);
+  [data-mountain-hero].is-final [data-hero-join] {
+    animation: mountain-hero-join-in 500ms 650ms both ease-out;
   }
 
-  .mountain-hero__final h1 {
-    margin: 0.15em 0;
-    font-size: clamp(3.25rem, 9vw, 9rem);
-    font-weight: 700;
-    letter-spacing: -0.065em;
-    line-height: 0.95;
-  }
-
-  .mountain-hero.is-ready .mountain-hero__phase,
-  .mountain-hero.is-ready .mountain-hero__final {
-    transition:
-      opacity 700ms ease,
-      transform 700ms ease;
-  }
-
-  .mountain-hero.is-final .mountain-hero__phase {
-    opacity: 0;
-    transform: translateY(-0.75rem);
-  }
-
-  .mountain-hero.is-final .mountain-hero__final {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @keyframes mountain-hero-drift {
+  @keyframes mountain-hero-join-in {
     from {
-      transform: scale(1.04);
+      opacity: 0;
+      transform: translateY(0.5rem);
     }
+
     to {
-      transform: scale(1);
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mountain-hero__image {
-      animation: none;
+    [data-mountain-hero] [data-hero-final] {
+      transform: none;
+      transition: none;
     }
 
-    .mountain-hero.is-ready .mountain-hero__phase,
-    .mountain-hero.is-ready .mountain-hero__final {
-      transition: none;
+    [data-mountain-hero].is-final [data-hero-join] {
+      animation: none;
     }
   }
 </style>
 
 <script>
   const hero = document.querySelector<HTMLElement>('[data-mountain-hero]');
-  const phase = hero?.querySelector<HTMLElement>('[data-hero-phase]');
+  const phases = hero ? Array.from(hero.querySelectorAll<HTMLElement>('[data-hero-phase]')) : [];
   const final = hero?.querySelector<HTMLElement>('[data-hero-final]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (hero && phase && final) {
-    const phases = ['Define Problem', 'Exercise Leadership', 'Create Impact'];
+  if (hero && phases.length && final) {
     const showFinal = () => {
       hero.classList.add('is-final');
-      phase.textContent = '';
-      window.setTimeout(() => hero.querySelector<HTMLElement>('[data-hero-join]')?.classList.add('join-visible'), 650);
+      phases.forEach((item) => item.classList.add('opacity-0'));
     };
-
-    hero.classList.add('is-ready');
 
     if (reduceMotion) {
       showFinal();
-      hero.querySelector<HTMLElement>('[data-hero-join]')?.classList.add('join-visible');
     } else {
-      let index = 0;
-      const showPhase = () => {
-        phase.textContent = phases[index];
-        phase
-          .animate(
-            [
-              { opacity: 0, transform: 'translateY(0.75rem)' },
-              { opacity: 1, transform: 'translateY(0)', offset: 0.2 },
-              { opacity: 1, transform: 'translateY(0)', offset: 0.8 },
-              { opacity: 0, transform: 'translateY(-0.75rem)' },
-            ],
-            { duration: 2400, easing: 'ease-in-out', fill: 'forwards' }
-          )
-          .finished.then(() => {
-            index += 1;
-            if (index < phases.length) window.setTimeout(showPhase, 150);
-            else window.setTimeout(showFinal, 250);
-          });
-      };
-      window.setTimeout(showPhase, 350);
+      phases.forEach((item, index) => {
+        window.setTimeout(() => item.classList.remove('opacity-0'), index * 2500);
+        window.setTimeout(() => item.classList.add('opacity-0'), index * 2500 + 1800);
+      });
+      window.setTimeout(showFinal, 7500);
     }
   }
 </script>
