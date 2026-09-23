@@ -11,9 +11,9 @@ export interface Props {
 
 const { metadata } = Astro.props;
 
-// Landing pages show a reduced header: only the "Landing" dropdown from the
+// Landing pages show a reduced header: only the "People" dropdown from the
 // main navigation (looked up by label so reordering navigation.ts is safe).
-const landingMenu = headerData?.links?.find((link) => link.text === 'Landing');
+const landingMenu = headerData?.links?.find((link) => link.text === 'People');
 ---
 
 <PageLayout metadata={metadata}>
