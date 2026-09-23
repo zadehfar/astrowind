@@ -22,9 +22,9 @@ const { image = mountainImage.src } = Astro.props;
       <p class="mountain-hero__phase" data-hero-phase>Define Problem</p>
     </div>
     <div class="mountain-hero__final" data-hero-final>
-      <p>Welcome to</p>
-      <h1 id="mountain-hero-title">Savalan Institute</h1>
-      <p>Join US</p>
+      <p class="mountain-hero__welcome">Welcome to</p>
+      <h1 class="mountain-hero__title" id="mountain-hero-title">Savalan Institute</h1>
+      <p class="mountain-hero__join" data-hero-join>Join us</p>
     </div>
   </div>
 </section>
@@ -103,6 +103,27 @@ const { image = mountainImage.src } = Astro.props;
     margin: 0;
   }
 
+  .mountain-hero__welcome,
+  .mountain-hero__title,
+  .mountain-hero__join {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition:
+      opacity 500ms ease,
+      transform 500ms ease;
+  }
+
+  .mountain-hero.is-final .mountain-hero__welcome,
+  .mountain-hero.is-final .mountain-hero__title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mountain-hero.is-final .mountain-hero__join.join-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .mountain-hero__final h1 {
     margin: 0.15em 0;
     font-size: clamp(3.25rem, 9vw, 9rem);
@@ -160,12 +181,14 @@ const { image = mountainImage.src } = Astro.props;
     const showFinal = () => {
       hero.classList.add('is-final');
       phase.textContent = '';
+      window.setTimeout(() => hero.querySelector<HTMLElement>('[data-hero-join]')?.classList.add('join-visible'), 650);
     };
 
     hero.classList.add('is-ready');
 
     if (reduceMotion) {
       showFinal();
+      hero.querySelector<HTMLElement>('[data-hero-join]')?.classList.add('join-visible');
     } else {
       let index = 0;
       const showPhase = () => {
