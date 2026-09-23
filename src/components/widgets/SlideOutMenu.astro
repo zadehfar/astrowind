@@ -1,0 +1,183 @@
+---
+interface Link {
+  text?: string;
+  href?: string;
+  links?: Array<Link>;
+}
+
+export interface Props {
+  links?: Array<Link>;
+}
+
+const { links = [] } = Astro.props;
+const nestedLinks = links.filter((link) => link.links?.length);
+---
+
+<aw-slideout-menu>
+  <div class="fixed inset-0 z-50 hidden bg-slate-950/50 opacity-0 transition-opacity duration-300" data-menu-backdrop>
+  </div>
+  <aside
+    class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-5xl translate-x-full flex-col bg-[#f2f0e9] text-slate-900 shadow-2xl transition-transform duration-300 ease-in-out"
+    aria-label="Expanded site menu"
+    aria-hidden="true"
+    data-menu-panel
+  >
+    <div class="flex items-center justify-between border-b border-slate-900/10 px-6 py-5 md:px-10">
+      <span class="text-sm font-semibold uppercase tracking-[0.2em]">Savalan Institute</span>
+      <button
+        type="button"
+        class="flex h-12 w-12 items-center justify-center bg-slate-900 text-white transition hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900"
+        aria-label="Close menu"
+        data-menu-close
+      >
+        <span class="text-3xl font-light leading-none" aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(14rem,0.8fr)_minmax(0,1.4fr)]">
+      <nav
+        class="border-b border-slate-900/10 px-6 py-8 md:border-b-0 md:border-r md:px-10 md:py-12"
+        aria-label="Menu categories"
+      >
+        <p class="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Explore</p>
+        <ul class="space-y-4">
+          {
+            links.map(({ text, href, links: children }, index) => (
+              <li>
+                {children?.length ? (
+                  <button
+                    type="button"
+                    class:list={[
+                      'group flex w-full items-center justify-between text-left text-2xl font-medium tracking-tight transition hover:text-sky-700 md:text-3xl',
+                      { 'text-sky-700': index === 0 },
+                    ]}
+                    data-menu-category={text}
+                    aria-expanded={index === 0 ? 'true' : 'false'}
+                  >
+                    <span>{text}</span>
+                    <span class="text-2xl transition-transform group-hover:translate-x-1" aria-hidden="true">
+                      →
+                    </span>
+                  </button>
+                ) : (
+                  <a
+                    class="block text-2xl font-medium tracking-tight transition hover:text-sky-700 md:text-3xl"
+                    href={href}
+                  >
+                    {text}
+                  </a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="overflow-y-auto px-6 py-8 md:px-12 md:py-12">
+        {
+          nestedLinks.map(({ text, links: children }, index) => (
+            <section
+              class:list={['menu-content', { 'menu-content-active': index === 0 }]}
+              data-menu-content={text}
+              aria-labelledby={`menu-heading-${index}`}
+            >
+              <p class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Section</p>
+              <h2 id={`menu-heading-${index}`} class="mb-8 max-w-xl text-4xl font-semibold tracking-tight md:text-6xl">
+                {text}
+              </h2>
+              <ul class="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                {children?.map(({ text: childText, href }) => (
+                  <li>
+                    <a
+                      class="group flex items-center justify-between border-b border-slate-900/15 py-3 text-lg font-medium transition hover:border-sky-700 hover:text-sky-700"
+                      href={href}
+                    >
+                      <span>{childText}</span>
+                      <span
+                        class="opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </aside>
+</aw-slideout-menu>
+
+<style>
+  aw-slideout-menu {
+    display: contents;
+  }
+
+  .menu-content {
+    display: none;
+  }
+
+  .menu-content-active {
+    display: block;
+  }
+</style>
+
+<script>
+  class AwSlideoutMenu extends HTMLElement {
+    connectedCallback() {
+      const panel = this.querySelector<HTMLElement>('[data-menu-panel]');
+      const backdrop = this.querySelector<HTMLElement>('[data-menu-backdrop]');
+      const close = this.querySelector<HTMLElement>('[data-menu-close]');
+      const categories = this.querySelectorAll<HTMLElement>('[data-menu-category]');
+      const contents = this.querySelectorAll<HTMLElement>('[data-menu-content]');
+      const closeMenu = () => {
+        panel?.classList.add('translate-x-full');
+        panel?.classList.remove('translate-x-0');
+        panel?.setAttribute('aria-hidden', 'true');
+        backdrop?.classList.add('hidden');
+        backdrop?.classList.remove('opacity-100');
+        backdrop?.classList.add('opacity-0');
+        document.body.classList.remove('overflow-hidden');
+      };
+
+      const openMenu = (category?: string) => {
+        panel?.classList.remove('translate-x-full');
+        panel?.classList.add('translate-x-0');
+        panel?.setAttribute('aria-hidden', 'false');
+        backdrop?.classList.remove('hidden');
+        requestAnimationFrame(() => backdrop?.classList.add('opacity-100'));
+        document.body.classList.add('overflow-hidden');
+        if (category) selectCategory(category);
+      };
+
+      const selectCategory = (category: string) => {
+        categories.forEach((item) =>
+          item.setAttribute('aria-expanded', String(item.dataset.menuCategory === category))
+        );
+        contents.forEach((content) =>
+          content.classList.toggle('menu-content-active', content.dataset.menuContent === category)
+        );
+        categories.forEach((item) => item.classList.toggle('text-sky-700', item.dataset.menuCategory === category));
+      };
+
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const trigger = target.closest<HTMLElement>('[data-menu-category-trigger]');
+        const hamburger = target.closest<HTMLElement>('[data-menu-toggle]');
+        if (trigger) openMenu(trigger.dataset.menuCategoryTrigger);
+        if (hamburger) openMenu();
+      });
+      categories.forEach((category) =>
+        category.addEventListener('click', () => selectCategory(category.dataset.menuCategory ?? ''))
+      );
+      close?.addEventListener('click', closeMenu);
+      backdrop?.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu();
+      });
+    }
+  }
+
+  if (!customElements.get('aw-slideout-menu')) customElements.define('aw-slideout-menu', AwSlideoutMenu);
+</script>
