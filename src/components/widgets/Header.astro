@@ -70,29 +70,31 @@ const persistKey = `header-${Array.from(
       <nav class="hidden flex-1 justify-center lg:flex" aria-label="Main navigation">
         <ul class="flex items-center gap-8">
           {
-            links.map(({ text, href, links: children }) => (
-              <li>
-                {children?.length ? (
-                  <button
-                    type="button"
-                    class="px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white"
-                    data-menu-category-trigger={text}
-                  >
-                    {text}
-                  </button>
-                ) : (
-                  <a
-                    class:list={[
-                      'px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white',
-                      { 'aw-link-active': isActive(href) },
-                    ]}
-                    href={href}
-                  >
-                    {text}
-                  </a>
-                )}
-              </li>
-            ))
+            links
+              .filter(({ text }) => text !== 'Blog')
+              .map(({ text, href, links: children }) => (
+                <li>
+                  {children?.length ? (
+                    <button
+                      type="button"
+                      class="px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white"
+                      data-menu-category-trigger={text}
+                    >
+                      {text}
+                    </button>
+                  ) : (
+                    <a
+                      class:list={[
+                        'px-3 py-2 text-[0.9375rem] font-medium transition hover:text-link dark:hover:text-white',
+                        { 'aw-link-active': isActive(href) },
+                      ]}
+                      href={href}
+                    >
+                      {text}
+                    </a>
+                  )}
+                </li>
+              ))
           }
         </ul>
       </nav>
