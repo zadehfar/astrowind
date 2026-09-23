@@ -63,10 +63,11 @@ const persistKey = `header-${Array.from(
       ]}
     >
       <a
-        class="text-2xl font-bold tracking-tight text-gray-900 transition hover:text-gray-700 dark:text-white dark:hover:text-gray-200"
+        class="flex items-center transition-opacity hover:opacity-80"
         href={getHomePermalink()}
+        aria-label="Savalan Institute home"
       >
-        Savalan Institute
+        <img class="h-8 w-auto md:h-10 dark:invert" src="/assets/gemini-svg.svg" alt="Savalan Institute" />
       </a>
       <nav class="hidden flex-1 justify-center lg:flex" aria-label="Main navigation">
         <ul class="flex items-center gap-8">

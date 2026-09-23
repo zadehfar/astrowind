@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&amp;family=Montserrat:wght@400;500&amp;display=swap');
+      .brand-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 52px;
+        font-style: italic;
+        font-weight: 700;
+        fill: currentColor;
+      }
+      .brand-subtitle {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        fill: currentColor;
+      }
+      .vintage-accent {
+        stroke: currentColor;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  
+  <!-- Vintage Accent Lines -->
+  <line x1="30" y1="95" x2="110" y2="95" class="vintage-accent" />
+  <line x1="290" y1="95" x2="370" y2="95" class="vintage-accent" />
+  
+  <!-- Main Lettering -->
+  <text x="200" y="65" text-anchor="middle" class="brand-title">Savalan</text>
+  <text x="202" y="100" text-anchor="middle" class="brand-subtitle">Institute</text>
+</svg>
