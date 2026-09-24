@@ -1,0 +1,184 @@
+---
+import defaultImage from '~/assets/images/default.png';
+
+const cards = [
+  {
+    title: 'Leadership',
+    headline: 'Develop effective communication and grassroots mentoring to guide communities forward.',
+    href: '/services',
+    cta: 'Explore Leadership',
+    items: ['Public Speaking', 'Mentorship', 'Team Building'],
+  },
+  {
+    title: 'Policy',
+    headline: 'Advocate for robust ethical oversight and equitable standards in emerging technologies.',
+    href: '/about',
+    cta: 'Explore Policy',
+    items: ['Ethical Frameworks', 'Tech Standards', 'Civic Guidelines'],
+  },
+  {
+    title: 'Change',
+    headline: 'Mobilize volunteer campaigns and build platforms for direct civic action.',
+    href: '/contact',
+    cta: 'Explore Change',
+    items: ['Volunteer Drives', 'Event Organizing', 'Grassroots Initiatives'],
+  },
+];
+---
+
+<section id="impact-areas" class="bg-slate-100 px-5 py-16 dark:bg-slate-950 md:px-8 md:py-24" data-features-grid>
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-10 max-w-2xl">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-primary">Impact areas</p>
+      <h2 class="text-3xl font-bold tracking-tight text-heading md:text-5xl">Build momentum for meaningful change.</h2>
+      <p class="mt-4 text-lg text-muted">
+        Explore the work that helps communities lead, shape policy, and create lasting impact.
+      </p>
+    </div>
+
+    <div class="flex min-h-[34rem] flex-col gap-4 md:h-[38rem] md:flex-row" role="list">
+      {
+        cards.map((card, index) => (
+          <article
+            class="features-grid__card group relative flex min-w-0 flex-1 overflow-hidden rounded-2xl bg-slate-900 text-white opacity-0 shadow-xl transition-all duration-500 ease-in-out motion-safe:animate-[features-grid-rise_700ms_ease-out_both] md:min-h-0"
+            style={`--card-delay: ${index * 200}ms`}
+            data-feature-card
+            role="listitem"
+          >
+            <button
+              class="features-grid__trigger flex min-h-80 w-full flex-col justify-between p-6 text-left transition-colors duration-500 hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:w-56 md:shrink-0 md:p-8"
+              type="button"
+              aria-expanded="false"
+              data-feature-trigger
+            >
+              <span class="text-3xl font-semibold tracking-tight md:text-4xl">{card.title}</span>
+              <span class="flex items-center justify-between text-sm font-medium text-slate-300">
+                <span>Explore</span>
+                <span
+                  aria-hidden="true"
+                  class="text-2xl transition-transform duration-500 group-[.is-active]:rotate-45"
+                >
+                  +
+                </span>
+              </span>
+            </button>
+
+            <div
+              class="features-grid__panel pointer-events-none flex min-w-0 flex-1 flex-col bg-white p-6 text-slate-900 opacity-0 transition-all duration-500 ease-in-out md:p-10"
+              aria-hidden="true"
+              data-feature-panel
+            >
+              <button
+                class="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full text-2xl text-slate-700 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                type="button"
+                aria-label={`Close ${card.title} details`}
+                data-feature-close
+              >
+                ×
+              </button>
+              <p class="max-w-xl pr-10 text-2xl font-medium leading-tight md:text-3xl">{card.headline}</p>
+              <a
+                class="mt-6 inline-flex w-fit items-center rounded-full bg-slate-900 px-5 py-3 font-semibold text-white transition hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                href={card.href}
+              >
+                {card.cta}
+                <span aria-hidden="true" class="ml-2">
+                  →
+                </span>
+              </a>
+              <ul class="mt-auto grid gap-4 pt-10 sm:grid-cols-3">
+                {card.items.map((item) => (
+                  <li class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                    <img class="h-24 w-full object-cover" src={defaultImage.src} alt="" loading="lazy" />
+                    <span class="flex items-center justify-between gap-2 p-3 text-sm font-medium">
+                      {item}
+                      <span aria-hidden="true" class="text-lg">
+                        →
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-features-grid] [data-feature-card] {
+    animation-delay: var(--card-delay);
+  }
+
+  [data-feature-card].is-active {
+    flex: 3 1 0%;
+  }
+
+  [data-feature-card].is-active .features-grid__panel {
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  @keyframes features-grid-rise {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 767px) {
+    [data-feature-card].is-active {
+      flex: 1 1 auto;
+    }
+
+    [data-feature-card].is-active .features-grid__trigger {
+      min-height: 12rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-features-grid] [data-feature-card] {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-features-grid]');
+  const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('[data-feature-card]')) : [];
+
+  if (grid) {
+    const closeAll = () => {
+      cards.forEach((card) => {
+        card.classList.remove('is-active');
+        card.querySelector<HTMLButtonElement>('[data-feature-trigger]')?.setAttribute('aria-expanded', 'false');
+        card.querySelector<HTMLElement>('[data-feature-panel]')?.setAttribute('aria-hidden', 'true');
+      });
+    };
+
+    cards.forEach((card) => {
+      card.querySelector<HTMLButtonElement>('[data-feature-trigger]')?.addEventListener('click', () => {
+        const wasActive = card.classList.contains('is-active');
+        closeAll();
+        if (!wasActive) {
+          card.classList.add('is-active');
+          card.querySelector<HTMLButtonElement>('[data-feature-trigger]')?.setAttribute('aria-expanded', 'true');
+          card.querySelector<HTMLElement>('[data-feature-panel]')?.setAttribute('aria-hidden', 'false');
+        }
+      });
+      card.querySelector<HTMLButtonElement>('[data-feature-close]')?.addEventListener('click', closeAll);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeAll();
+    });
+  }
+</script>
