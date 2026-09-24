@@ -23,6 +23,13 @@ const cards = [
     cta: 'Explore Change',
     items: ['Volunteer Drives', 'Event Organizing', 'Grassroots Initiatives'],
   },
+  {
+    title: 'Economy',
+    headline: 'Drive sustainable economic growth and financial empowerment.',
+    href: '/services',
+    cta: 'Explore Economy',
+    items: ['Economic Development', 'Job Creation', 'Financial Literacy'],
+  },
 ];
 ---
 
@@ -45,7 +52,7 @@ const cards = [
             href={card.href}
             role="listitem"
           >
-            <span class="relative text-2xl font-semibold tracking-tight">{card.title}</span>
+            <span class="relative break-words text-lg font-semibold tracking-tight hyphens-auto">{card.title}</span>
             <span
               class="relative ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-3xl text-white"
               aria-hidden="true"
@@ -76,7 +83,9 @@ const cards = [
               aria-expanded="false"
               data-feature-trigger
             >
-              <span class="text-3xl font-semibold tracking-tight md:text-4xl">{card.title}</span>
+              <span class="break-words text-3xl font-semibold tracking-tight hyphens-auto md:text-4xl">
+                {card.title}
+              </span>
               <span class="flex items-center justify-between text-sm font-medium text-slate-300">
                 <span>Explore</span>
                 <span
