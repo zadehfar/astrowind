@@ -1,0 +1,293 @@
+---
+interface EventItem {
+  title: string;
+  date: string;
+  location: string;
+  category: string;
+  image: string;
+  link: string;
+}
+
+const upcomingEvents: EventItem[] = [
+  {
+    title: 'Savalan Leadership Forum 2026',
+    date: 'Sep 25–27, 2026',
+    location: 'Aspen, Colorado',
+    category: 'COMMUNITY',
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/savalan-leadership-forum-2026',
+  },
+  {
+    title: 'Savalan Ideas: Economy',
+    date: 'Oct 13–15, 2026',
+    location: 'Tulsa, Oklahoma',
+    category: 'ECONOMIC OPPORTUNITY',
+    image: 'https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/savalan-ideas-economy',
+  },
+  {
+    title: 'Religious Pluralism at America 250',
+    date: 'Sep 23–24, 2026',
+    location: 'Washington, D.C.',
+    category: 'ETHICS',
+    image: 'https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/religious-pluralism-america-250',
+  },
+  {
+    title: 'Civic Action Lab',
+    date: 'Nov 6–8, 2026',
+    location: 'Atlanta, Georgia',
+    category: 'POLICY',
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/civic-action-lab',
+  },
+  {
+    title: 'Future of Work Roundtable',
+    date: 'Dec 2, 2026',
+    location: 'New York, New York',
+    category: 'ECONOMIC OPPORTUNITY',
+    image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/future-of-work-roundtable',
+  },
+  {
+    title: 'Young Leaders Assembly',
+    date: 'Jan 15–17, 2027',
+    location: 'Chicago, Illinois',
+    category: 'COMMUNITY',
+    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/young-leaders-assembly',
+  },
+];
+
+const pastEvents: EventItem[] = [
+  {
+    title: 'Savalan Ideas: Democracy',
+    date: 'May 14–16, 2026',
+    location: 'Boston, Massachusetts',
+    category: 'POLICY',
+    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/savalan-ideas-democracy',
+  },
+  {
+    title: 'Community Builders Summit',
+    date: 'Apr 8–10, 2026',
+    location: 'Detroit, Michigan',
+    category: 'COMMUNITY',
+    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/community-builders-summit',
+  },
+  {
+    title: 'Ethics in Emerging Technology',
+    date: 'Mar 19, 2026',
+    location: 'San Francisco, California',
+    category: 'ETHICS',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/ethics-emerging-technology',
+  },
+  {
+    title: 'Grassroots Organizing Workshop',
+    date: 'Feb 21, 2026',
+    location: 'Phoenix, Arizona',
+    category: 'COMMUNITY',
+    image: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/grassroots-organizing-workshop',
+  },
+  {
+    title: 'Equitable Policy Futures',
+    date: 'Jan 29, 2026',
+    location: 'Chicago, Illinois',
+    category: 'POLICY',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/equitable-policy-futures',
+  },
+  {
+    title: 'Financial Empowerment Day',
+    date: 'Dec 6, 2025',
+    location: 'Baltimore, Maryland',
+    category: 'ECONOMIC OPPORTUNITY',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1400&q=85',
+    link: '/events/financial-empowerment-day',
+  },
+];
+
+const eventGroups = [
+  { id: 'upcoming', label: 'Upcoming', items: upcomingEvents },
+  { id: 'past', label: 'Past Events', items: pastEvents },
+];
+---
+
+<section class="bg-[#1b1622] px-5 py-16 text-white md:px-8 md:py-24" aria-labelledby="events-title" data-events-section>
+  <div class="mx-auto max-w-7xl">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <h2 id="events-title" class="text-4xl font-bold tracking-tight md:text-5xl">Events</h2>
+
+      <div class="flex gap-6" role="tablist" aria-label="Event categories">
+        {
+          eventGroups.map((group, index) => (
+            <button
+              class="events-tab relative pb-3 text-lg font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-[#ff3366] after:transition-transform hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366] focus-visible:ring-offset-4 focus-visible:ring-offset-[#1b1622] data-[active=true]:after:scale-x-100"
+              type="button"
+              role="tab"
+              aria-selected={index === 0 ? 'true' : 'false'}
+              aria-controls={`${group.id}-events`}
+              data-events-tab={group.id}
+            >
+              {group.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      eventGroups.map((group, groupIndex) => (
+        <div
+          id={`${group.id}-events`}
+          class:list={['mt-14', groupIndex > 0 && 'hidden']}
+          role="tabpanel"
+          aria-labelledby={`${group.id}-tab`}
+          data-events-panel={group.id}
+        >
+          <div class="relative">
+            <div
+              class="events-track -mx-5 flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth px-5 pb-6 [scrollbar-width:none] md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden"
+              data-events-track
+            >
+              {group.items.map((event) => (
+                <article class="w-[calc(100vw-2.5rem)] shrink-0 snap-start sm:w-[calc(50vw-3rem)] md:w-[calc((100%-4rem)/3)]">
+                  <a
+                    class="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
+                    href={event.link}
+                  >
+                    <div class="relative aspect-[1.35/1] overflow-hidden">
+                      <img
+                        class="h-full w-full object-cover transition duration-500 ease-out group-hover:scale-105"
+                        src={event.image}
+                        alt=""
+                        loading="lazy"
+                      />
+                      <span class="absolute bottom-0 left-0 bg-[#1b1622] px-3 py-2 text-xs font-bold tracking-wide text-white">
+                        {event.category}
+                      </span>
+                    </div>
+                    <h3 class="mt-8 text-2xl font-bold leading-tight tracking-tight md:text-3xl">{event.title}</h3>
+                    <p class="mt-3 text-lg text-white/80">
+                      {event.date} <span aria-hidden="true">|</span> {event.location}
+                    </p>
+                    <span class="mt-10 inline-flex items-center gap-4 text-sm font-bold tracking-[0.08em]">
+                      VIEW EVENT
+                      <span
+                        class="text-2xl font-normal text-[#ff3366] transition-transform duration-300 group-hover:translate-x-2"
+                        aria-hidden="true"
+                      >
+                        →
+                      </span>
+                    </span>
+                  </a>
+                </article>
+              ))}
+            </div>
+
+            <div class="mt-8 flex justify-end gap-3">
+              <button
+                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#1b1622] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
+                type="button"
+                aria-label={`Previous ${group.label.toLowerCase()}`}
+                data-events-prev
+              >
+                ←
+              </button>
+              <button
+                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#1b1622] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
+                type="button"
+                aria-label={`Next ${group.label.toLowerCase()}`}
+                data-events-next
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  interface EventsSectionState {
+    cleanup: () => void;
+    pageLoadHandler: () => void;
+  }
+
+  const documentWithEventsState = document as Document & {
+    __savalanEventsSectionState?: EventsSectionState;
+  };
+
+  documentWithEventsState.__savalanEventsSectionState?.cleanup();
+  if (documentWithEventsState.__savalanEventsSectionState?.pageLoadHandler) {
+    document.removeEventListener(
+      'astro:page-load',
+      documentWithEventsState.__savalanEventsSectionState.pageLoadHandler
+    );
+  }
+
+  const pageLoadHandler = () => {
+    documentWithEventsState.__savalanEventsSectionState?.cleanup();
+
+    const section = document.querySelector<HTMLElement>('[data-events-section]');
+    if (!section) return;
+
+    const cleanups: Array<() => void> = [];
+    const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-events-tab]'));
+    const panels = Array.from(section.querySelectorAll<HTMLElement>('[data-events-panel]'));
+
+    const selectGroup = (groupId: string) => {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.eventsTab === groupId;
+        tab.dataset.active = String(active);
+        tab.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach((panel) => {
+        const active = panel.dataset.eventsPanel === groupId;
+        panel.classList.toggle('hidden', !active);
+        if (active) panel.querySelector<HTMLElement>('[data-events-track]')?.scrollTo({ left: 0, behavior: 'smooth' });
+      });
+    };
+
+    tabs.forEach((tab) => {
+      const onClick = () => selectGroup(tab.dataset.eventsTab ?? 'upcoming');
+      tab.addEventListener('click', onClick);
+      cleanups.push(() => tab.removeEventListener('click', onClick));
+    });
+
+    panels.forEach((panel) => {
+      const track = panel.querySelector<HTMLElement>('[data-events-track]');
+      const previous = panel.querySelector<HTMLButtonElement>('[data-events-prev]');
+      const next = panel.querySelector<HTMLButtonElement>('[data-events-next]');
+      if (!track || !previous || !next) return;
+
+      const scrollAmount = () =>
+        Math.max(track.clientWidth, track.querySelector<HTMLElement>('article')?.clientWidth ?? 0);
+      const onPrevious = () => track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      const onNext = () => track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      previous.addEventListener('click', onPrevious);
+      next.addEventListener('click', onNext);
+      cleanups.push(() => {
+        previous.removeEventListener('click', onPrevious);
+        next.removeEventListener('click', onNext);
+      });
+    });
+
+    selectGroup('upcoming');
+    documentWithEventsState.__savalanEventsSectionState = {
+      cleanup: () => cleanups.forEach((cleanup) => cleanup()),
+      pageLoadHandler,
+    };
+  };
+
+  document.addEventListener('astro:page-load', pageLoadHandler);
+  documentWithEventsState.__savalanEventsSectionState = {
+    cleanup: () => undefined,
+    pageLoadHandler,
+  };
+</script>
