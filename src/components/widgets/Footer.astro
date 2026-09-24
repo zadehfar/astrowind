@@ -50,18 +50,216 @@ const socialLinks = [
   { label: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com' },
   { label: 'YouTube', icon: 'tabler:brand-youtube', href: 'https://www.youtube.com' },
 ];
+
+const countries = [
+  ['af', 'Afghanistan'],
+  ['al', 'Albania'],
+  ['dz', 'Algeria'],
+  ['ad', 'Andorra'],
+  ['ao', 'Angola'],
+  ['ag', 'Antigua and Barbuda'],
+  ['ar', 'Argentina'],
+  ['am', 'Armenia'],
+  ['au', 'Australia'],
+  ['at', 'Austria'],
+  ['az', 'Azerbaijan'],
+  ['bs', 'Bahamas'],
+  ['bh', 'Bahrain'],
+  ['bd', 'Bangladesh'],
+  ['bb', 'Barbados'],
+  ['by', 'Belarus'],
+  ['be', 'Belgium'],
+  ['bz', 'Belize'],
+  ['bj', 'Benin'],
+  ['bt', 'Bhutan'],
+  ['bo', 'Bolivia'],
+  ['ba', 'Bosnia and Herzegovina'],
+  ['bw', 'Botswana'],
+  ['br', 'Brazil'],
+  ['bn', 'Brunei'],
+  ['bg', 'Bulgaria'],
+  ['bf', 'Burkina Faso'],
+  ['bi', 'Burundi'],
+  ['cv', 'Cabo Verde'],
+  ['kh', 'Cambodia'],
+  ['cm', 'Cameroon'],
+  ['ca', 'Canada'],
+  ['cf', 'Central African Republic'],
+  ['td', 'Chad'],
+  ['cl', 'Chile'],
+  ['cn', 'China'],
+  ['co', 'Colombia'],
+  ['km', 'Comoros'],
+  ['cg', 'Congo'],
+  ['cr', 'Costa Rica'],
+  ['ci', "Côte d'Ivoire"],
+  ['hr', 'Croatia'],
+  ['cu', 'Cuba'],
+  ['cy', 'Cyprus'],
+  ['cz', 'Czechia'],
+  ['cd', 'Democratic Republic of the Congo'],
+  ['dk', 'Denmark'],
+  ['dj', 'Djibouti'],
+  ['dm', 'Dominica'],
+  ['do', 'Dominican Republic'],
+  ['ec', 'Ecuador'],
+  ['eg', 'Egypt'],
+  ['sv', 'El Salvador'],
+  ['gq', 'Equatorial Guinea'],
+  ['er', 'Eritrea'],
+  ['ee', 'Estonia'],
+  ['sz', 'Eswatini'],
+  ['et', 'Ethiopia'],
+  ['fj', 'Fiji'],
+  ['fi', 'Finland'],
+  ['fr', 'France'],
+  ['ga', 'Gabon'],
+  ['gm', 'Gambia'],
+  ['ge', 'Georgia'],
+  ['de', 'Germany'],
+  ['gh', 'Ghana'],
+  ['gr', 'Greece'],
+  ['gd', 'Grenada'],
+  ['gt', 'Guatemala'],
+  ['gn', 'Guinea'],
+  ['gw', 'Guinea-Bissau'],
+  ['gy', 'Guyana'],
+  ['ht', 'Haiti'],
+  ['hn', 'Honduras'],
+  ['hu', 'Hungary'],
+  ['is', 'Iceland'],
+  ['in', 'India'],
+  ['id', 'Indonesia'],
+  ['ir', 'Iran'],
+  ['iq', 'Iraq'],
+  ['ie', 'Ireland'],
+  ['il', 'Israel'],
+  ['it', 'Italy'],
+  ['jm', 'Jamaica'],
+  ['jp', 'Japan'],
+  ['jo', 'Jordan'],
+  ['kz', 'Kazakhstan'],
+  ['ke', 'Kenya'],
+  ['ki', 'Kiribati'],
+  ['kw', 'Kuwait'],
+  ['kg', 'Kyrgyzstan'],
+  ['la', 'Laos'],
+  ['lv', 'Latvia'],
+  ['lb', 'Lebanon'],
+  ['ls', 'Lesotho'],
+  ['lr', 'Liberia'],
+  ['ly', 'Libya'],
+  ['li', 'Liechtenstein'],
+  ['lt', 'Lithuania'],
+  ['lu', 'Luxembourg'],
+  ['mg', 'Madagascar'],
+  ['mw', 'Malawi'],
+  ['my', 'Malaysia'],
+  ['mv', 'Maldives'],
+  ['ml', 'Mali'],
+  ['mt', 'Malta'],
+  ['mh', 'Marshall Islands'],
+  ['mr', 'Mauritania'],
+  ['mu', 'Mauritius'],
+  ['mx', 'Mexico'],
+  ['fm', 'Micronesia'],
+  ['md', 'Moldova'],
+  ['mc', 'Monaco'],
+  ['mn', 'Mongolia'],
+  ['me', 'Montenegro'],
+  ['ma', 'Morocco'],
+  ['mz', 'Mozambique'],
+  ['mm', 'Myanmar'],
+  ['na', 'Namibia'],
+  ['nr', 'Nauru'],
+  ['np', 'Nepal'],
+  ['nl', 'Netherlands'],
+  ['nz', 'New Zealand'],
+  ['ni', 'Nicaragua'],
+  ['ne', 'Niger'],
+  ['ng', 'Nigeria'],
+  ['kp', 'North Korea'],
+  ['mk', 'North Macedonia'],
+  ['no', 'Norway'],
+  ['om', 'Oman'],
+  ['pk', 'Pakistan'],
+  ['pw', 'Palau'],
+  ['pa', 'Panama'],
+  ['pg', 'Papua New Guinea'],
+  ['py', 'Paraguay'],
+  ['pe', 'Peru'],
+  ['ph', 'Philippines'],
+  ['pl', 'Poland'],
+  ['pt', 'Portugal'],
+  ['qa', 'Qatar'],
+  ['ro', 'Romania'],
+  ['ru', 'Russia'],
+  ['rw', 'Rwanda'],
+  ['kn', 'Saint Kitts and Nevis'],
+  ['lc', 'Saint Lucia'],
+  ['vc', 'Saint Vincent and the Grenadines'],
+  ['ws', 'Samoa'],
+  ['sm', 'San Marino'],
+  ['st', 'São Tomé and Príncipe'],
+  ['sa', 'Saudi Arabia'],
+  ['sn', 'Senegal'],
+  ['rs', 'Serbia'],
+  ['sc', 'Seychelles'],
+  ['sl', 'Sierra Leone'],
+  ['sg', 'Singapore'],
+  ['sk', 'Slovakia'],
+  ['si', 'Slovenia'],
+  ['sb', 'Solomon Islands'],
+  ['so', 'Somalia'],
+  ['za', 'South Africa'],
+  ['kr', 'South Korea'],
+  ['ss', 'South Sudan'],
+  ['es', 'Spain'],
+  ['lk', 'Sri Lanka'],
+  ['sd', 'Sudan'],
+  ['sr', 'Suriname'],
+  ['se', 'Sweden'],
+  ['ch', 'Switzerland'],
+  ['sy', 'Syria'],
+  ['tw', 'Taiwan'],
+  ['tj', 'Tajikistan'],
+  ['tz', 'Tanzania'],
+  ['th', 'Thailand'],
+  ['tl', 'Timor-Leste'],
+  ['tg', 'Togo'],
+  ['to', 'Tonga'],
+  ['tt', 'Trinidad and Tobago'],
+  ['tn', 'Tunisia'],
+  ['tr', 'Türkiye'],
+  ['tm', 'Turkmenistan'],
+  ['tv', 'Tuvalu'],
+  ['ug', 'Uganda'],
+  ['ua', 'Ukraine'],
+  ['ae', 'United Arab Emirates'],
+  ['gb', 'United Kingdom'],
+  ['us', 'United States'],
+  ['uy', 'Uruguay'],
+  ['uz', 'Uzbekistan'],
+  ['vu', 'Vanuatu'],
+  ['va', 'Vatican City'],
+  ['ve', 'Venezuela'],
+  ['vn', 'Vietnam'],
+  ['ye', 'Yemen'],
+  ['zm', 'Zambia'],
+  ['zw', 'Zimbabwe'],
+];
 ---
 
 <footer class="w-full overflow-hidden bg-[#034a75] text-white not-prose">
-  <div class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+  <div class="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
     <section aria-labelledby="footer-newsletter-title">
       <h2 id="footer-newsletter-title" class="text-4xl font-bold tracking-tight md:text-5xl">Stay Connected</h2>
-      <p class="mt-5 max-w-4xl text-xl leading-relaxed text-white/85 md:text-2xl">
+      <p class="mt-4 max-w-4xl text-xl leading-relaxed text-white/85 md:text-2xl">
         Get the latest Savalan Institute news, stories and announcements in your inbox
       </p>
 
-      <form class="mt-12" action="/subscribe" method="post">
-        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <form class="mt-8" action="/subscribe" method="post">
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           <label class="block">
             <span class="text-sm font-bold tracking-[0.12em]">EMAIL ADDRESS *</span>
             <input
@@ -101,15 +299,12 @@ const socialLinks = [
               required
             >
               <option value="" selected disabled>Select a country</option>
-              <option value="us">United States</option>
-              <option value="ca">Canada</option>
-              <option value="gb">United Kingdom</option>
-              <option value="other">Other</option>
+              {countries.map(([value, label]) => <option value={value}>{label}</option>)}
             </select>
           </label>
         </div>
         <button
-          class="mt-8 inline-flex items-center rounded-lg border border-white px-7 py-3 text-base font-bold transition hover:bg-white hover:text-[#034a75] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#034a75]"
+          class="mt-6 inline-flex items-center rounded-lg border border-white px-7 py-3 text-base font-bold transition hover:bg-white hover:text-[#034a75] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#034a75]"
           type="submit"
         >
           Subscribe
@@ -120,15 +315,20 @@ const socialLinks = [
   </div>
 
   <div class="border-y border-white/10" aria-hidden="true">
-    <div class="overflow-hidden whitespace-nowrap py-4">
-      <div class="footer-marquee text-7xl font-bold leading-none tracking-[-0.05em] text-white/10 md:text-[12rem]">
-        Savalan Institute&nbsp;&nbsp;&nbsp;Savalan Institute&nbsp;&nbsp;&nbsp;
+    <div class="overflow-hidden whitespace-nowrap py-3">
+      <div class="footer-marquee text-5xl font-bold leading-none tracking-[-0.05em] md:text-8xl">
+        <span class="text-white font-extrabold opacity-100">Savalan</span>{' '}
+        <span class="text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.4)]">Institute</span>
+        <span class="mx-12" aria-hidden="true">
+          <span class="text-white font-extrabold opacity-100">Savalan</span>{' '}
+          <span class="text-transparent [-webkit-text-stroke:1.5px_rgba(255,255,255,0.4)]">Institute</span>
+        </span>
       </div>
     </div>
   </div>
 
-  <div class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-    <div class="grid gap-14 lg:grid-cols-3 lg:gap-20">
+  <div class="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
+    <div class="grid gap-10 lg:grid-cols-3 lg:gap-16">
       <div class="lg:col-span-1">
         <a
           class="inline-flex items-center transition-opacity hover:opacity-80"
@@ -141,7 +341,7 @@ const socialLinks = [
             alt="Savalan Institute"
           />
         </a>
-        <p class="mt-8 max-w-md text-lg leading-relaxed text-white/85">
+        <p class="mt-6 max-w-md text-lg leading-relaxed text-white/85">
           Driving change through dialogue, leadership, and action to help solve the greatest challenges of our time.
         </p>
       </div>
@@ -151,7 +351,7 @@ const socialLinks = [
           footerLinks.map((group) => (
             <div>
               <h2 class="text-base font-semibold text-white/60">{group.title}</h2>
-              <ul class="mt-5 space-y-4">
+              <ul class="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li>
                     <a
@@ -175,7 +375,7 @@ const socialLinks = [
       </nav>
     </div>
 
-    <div class="mt-16 flex flex-col gap-6 border-t border-white/20 pt-6 md:flex-row md:items-center md:justify-between">
+    <div class="mt-12 flex flex-col gap-5 border-t border-white/20 pt-6 md:flex-row md:items-center md:justify-between">
       <p class="text-sm text-white/75">© 2026 Savalan Institute, some rights reserved</p>
       <ul class="flex flex-wrap items-center gap-2" aria-label="Social media">
         {
