@@ -179,10 +179,30 @@ const cards = [
 </style>
 
 <script>
-  const grid = document.querySelector<HTMLElement>('[data-features-grid]');
-  const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('[data-feature-card]')) : [];
+  interface FeaturesGridState {
+    cleanup: () => void;
+    pageLoadHandler: () => void;
+  }
 
-  if (grid) {
+  const documentWithState = document as Document & {
+    __savalanFeaturesGridState?: FeaturesGridState;
+  };
+
+  documentWithState.__savalanFeaturesGridState?.cleanup();
+  if (documentWithState.__savalanFeaturesGridState?.pageLoadHandler) {
+    document.removeEventListener('astro:page-load', documentWithState.__savalanFeaturesGridState.pageLoadHandler);
+  }
+
+  const pageLoadHandler = () => {
+    documentWithState.__savalanFeaturesGridState?.cleanup();
+
+    const grid = document.querySelector<HTMLElement>('[data-features-grid]');
+    const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('[data-feature-card]')) : [];
+    const cleanups: Array<() => void> = [];
+
+    if (!grid || !cards.length) return;
+
+    const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
     const closeAll = () => {
       cards.forEach((card) => {
         card.classList.remove('is-active');
@@ -192,20 +212,49 @@ const cards = [
     };
 
     cards.forEach((card) => {
-      card.querySelector<HTMLButtonElement>('[data-feature-trigger]')?.addEventListener('click', () => {
+      const trigger = card.querySelector<HTMLButtonElement>('[data-feature-trigger]');
+      const close = card.querySelector<HTMLButtonElement>('[data-feature-close]');
+      const onTriggerClick = () => {
+        if (!isDesktop()) return;
+
         const wasActive = card.classList.contains('is-active');
         closeAll();
         if (!wasActive) {
           card.classList.add('is-active');
-          card.querySelector<HTMLButtonElement>('[data-feature-trigger]')?.setAttribute('aria-expanded', 'true');
+          trigger?.setAttribute('aria-expanded', 'true');
           card.querySelector<HTMLElement>('[data-feature-panel]')?.setAttribute('aria-hidden', 'false');
         }
+      };
+      const onCloseClick = () => {
+        if (isDesktop()) closeAll();
+      };
+
+      trigger?.addEventListener('click', onTriggerClick);
+      close?.addEventListener('click', onCloseClick);
+      cleanups.push(() => {
+        trigger?.removeEventListener('click', onTriggerClick);
+        close?.removeEventListener('click', onCloseClick);
       });
-      card.querySelector<HTMLButtonElement>('[data-feature-close]')?.addEventListener('click', closeAll);
     });
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeAll();
-    });
-  }
+    const onKeydown = (event: KeyboardEvent) => {
+      if (isDesktop() && event.key === 'Escape') closeAll();
+    };
+    document.addEventListener('keydown', onKeydown);
+    cleanups.push(() => document.removeEventListener('keydown', onKeydown));
+
+    documentWithState.__savalanFeaturesGridState = {
+      pageLoadHandler,
+      cleanup: () => {
+        cleanups.forEach((cleanup) => cleanup());
+        closeAll();
+      },
+    };
+  };
+
+  document.addEventListener('astro:page-load', pageLoadHandler);
+  documentWithState.__savalanFeaturesGridState = {
+    pageLoadHandler,
+    cleanup: () => undefined,
+  };
 </script>
