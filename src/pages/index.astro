@@ -13,7 +13,6 @@ import BlogHighlightedPosts from '~/components/widgets/BlogHighlightedPosts.astr
 import FAQs from '~/components/widgets/FAQs.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
-import SocialProof from '~/components/widgets/SocialProof.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE, METADATA, I18N } from 'astrowind:config';
 import favIconSvg from '~/assets/favicons/favicon.svg';
@@ -55,24 +54,6 @@ const structuredData = [
   <!-- Hero Widget ******************* -->
 
   <MountainHero />
-
-  <!-- SocialProof Widget ************ -->
-
-  <SocialProof
-    id="proof"
-    classes={{ container: '!pb-14 md:!pb-20' }}
-    items={[
-      {
-        value: '#1',
-        label: 'most starred Astro theme',
-        icon: 'tabler:star-filled',
-        color: 'text-amber-400',
-        href: 'https://github.com/arthelokyo/astrowind',
-      },
-      { value: '100', label: 'Lighthouse score', icon: 'tabler:gauge', color: 'text-emerald-500' },
-      { value: 'MIT', label: 'licensed, free to use', icon: 'tabler:license', color: 'text-sky-500' },
-    ]}
-  />
 
   <!-- Impact Areas Widget ************* -->
 

@@ -40,22 +40,11 @@ const cards = [
       {
         cards.map((card, index) => (
           <a
-            class="features-grid__mobile-card relative flex h-72 flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 p-5 text-white opacity-0 shadow-xl motion-safe:animate-[features-grid-rise_700ms_ease-out_both] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            class="features-grid__mobile-card relative flex h-72 flex-col justify-between overflow-hidden rounded-2xl bg-[#034a75] p-5 text-white opacity-0 shadow-xl motion-safe:animate-[features-grid-rise_700ms_ease-out_both] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             style={`--card-delay: ${index * 200}ms`}
             href={card.href}
             role="listitem"
           >
-            <img
-              class="absolute inset-0 h-full w-full object-cover opacity-60"
-              src={defaultImage.src}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-            />
-            <span
-              class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/20 to-slate-950/60"
-              aria-hidden="true"
-            />
             <span class="relative text-2xl font-semibold tracking-tight">{card.title}</span>
             <span
               class="relative ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-3xl text-white"
@@ -76,7 +65,7 @@ const cards = [
       {
         cards.map((card, index) => (
           <article
-            class="features-grid__card group relative flex min-w-0 flex-1 overflow-hidden rounded-2xl bg-slate-900 text-white opacity-0 shadow-xl transition-all duration-500 ease-in-out motion-safe:animate-[features-grid-rise_700ms_ease-out_both] md:min-h-0"
+            class="features-grid__card group relative flex min-w-0 flex-1 overflow-hidden rounded-2xl bg-[#034a75] text-white opacity-0 shadow-xl transition-all duration-500 ease-in-out motion-safe:animate-[features-grid-rise_700ms_ease-out_both] md:min-h-0"
             style={`--card-delay: ${index * 200}ms`}
             data-feature-card
             role="listitem"
@@ -150,6 +139,7 @@ const cards = [
   }
 
   [data-feature-card].is-active {
+    background-color: #0083ca;
     flex: 3 1 0%;
   }
 
