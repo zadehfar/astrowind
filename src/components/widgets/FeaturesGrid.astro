@@ -7,6 +7,7 @@ const cards = [
     headline: 'Develop effective communication and grassroots mentoring to guide communities forward.',
     href: '/services',
     cta: 'Explore Leadership',
+    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&h=1200&fit=crop',
     items: ['Public Speaking', 'Mentorship', 'Team Building'],
   },
   {
@@ -14,6 +15,7 @@ const cards = [
     headline: 'Advocate for robust ethical oversight and equitable standards in emerging technologies.',
     href: '/about',
     cta: 'Explore Policy',
+    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&h=1200&fit=crop',
     items: ['Ethical Frameworks', 'Tech Standards', 'Civic Guidelines'],
   },
   {
@@ -21,6 +23,7 @@ const cards = [
     headline: 'Mobilize volunteer campaigns and build platforms for direct civic action.',
     href: '/contact',
     cta: 'Explore Change',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=1200&fit=crop',
     items: ['Volunteer Drives', 'Event Organizing', 'Grassroots Initiatives'],
   },
   {
@@ -28,6 +31,7 @@ const cards = [
     headline: 'Drive sustainable economic growth and financial empowerment.',
     href: '/services',
     cta: 'Explore Economy',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&h=1200&fit=crop',
     items: ['Economic Development', 'Job Creation', 'Financial Literacy'],
   },
 ];
@@ -74,14 +78,20 @@ const cards = [
       {
         cards.map((card, index) => (
           <a
-            class="features-grid__mobile-card relative flex h-72 flex-col justify-between overflow-hidden rounded-2xl bg-[#034a75] p-5 text-white opacity-0 shadow-xl motion-safe:animate-[features-grid-rise_700ms_ease-out_both] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            style={`--card-delay: ${index * 200}ms`}
+            class="features-grid__mobile-card group relative flex h-72 flex-col justify-between overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat p-5 text-white opacity-0 shadow-xl motion-safe:animate-[features-grid-rise_700ms_ease-out_both] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            style={`--card-delay: ${index * 200}ms; background-image: url('${card.image}')`}
             href={card.href}
             role="listitem"
           >
-            <span class="relative break-words text-lg font-semibold tracking-tight hyphens-auto">{card.title}</span>
             <span
-              class="relative ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-3xl text-white"
+              class="features-grid__overlay absolute inset-0 bg-[#034a75]/80 mix-blend-multiply transition-all duration-300"
+              aria-hidden="true"
+            />
+            <span class="relative z-10 break-words text-lg font-semibold tracking-tight hyphens-auto">
+              {card.title}
+            </span>
+            <span
+              class="relative z-10 ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-3xl text-white"
               aria-hidden="true"
             >
               →
@@ -99,13 +109,17 @@ const cards = [
       {
         cards.map((card, index) => (
           <article
-            class="features-grid__card group relative flex min-w-0 flex-1 overflow-hidden rounded-2xl bg-[#034a75] text-white opacity-0 shadow-xl transition-all duration-500 ease-in-out motion-safe:animate-[features-grid-rise_700ms_ease-out_both] md:min-h-0"
-            style={`--card-delay: ${index * 200}ms`}
+            class="features-grid__card group relative flex min-w-0 flex-1 overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat text-white opacity-0 shadow-xl transition-all duration-500 ease-in-out motion-safe:animate-[features-grid-rise_700ms_ease-out_both] md:min-h-0"
+            style={`--card-delay: ${index * 200}ms; background-image: url('${card.image}')`}
             data-feature-card
             role="listitem"
           >
+            <span
+              class="features-grid__overlay absolute inset-0 bg-[#034a75]/80 mix-blend-multiply transition-all duration-300"
+              aria-hidden="true"
+            />
             <button
-              class="features-grid__trigger flex min-h-80 w-full flex-col justify-between p-6 text-left transition-colors duration-500 hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:w-56 md:shrink-0 md:p-8"
+              class="features-grid__trigger relative z-10 flex min-h-80 w-full flex-col justify-between p-6 text-left transition-colors duration-500 hover:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:w-56 md:shrink-0 md:p-8"
               type="button"
               aria-expanded="false"
               data-feature-trigger
@@ -174,8 +188,13 @@ const cards = [
     animation-delay: var(--card-delay);
   }
 
+  [data-features-grid] .features-grid__mobile-card:hover .features-grid__overlay,
+  [data-feature-card]:hover .features-grid__overlay,
+  [data-feature-card].is-active .features-grid__overlay {
+    background-color: rgb(3 74 117 / 50%);
+  }
+
   [data-feature-card].is-active {
-    background-color: #0083ca;
     flex: 3 1 0%;
   }
 
