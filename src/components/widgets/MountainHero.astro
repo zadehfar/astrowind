@@ -94,25 +94,67 @@ import heroImg from '~/assets/images/Savalan main .png';
 </style>
 
 <script>
-  const hero = document.querySelector<HTMLElement>('[data-mountain-hero]');
-  const phases = hero ? Array.from(hero.querySelectorAll<HTMLElement>('[data-hero-phase]')) : [];
-  const final = hero?.querySelector<HTMLElement>('[data-hero-final]');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  interface MountainHeroState {
+    cleanup: () => void;
+    pageLoadHandler: () => void;
+  }
 
-  if (hero && phases.length && final) {
+  const documentWithState = document as Document & {
+    __savalanMountainHeroState?: MountainHeroState;
+  };
+
+  documentWithState.__savalanMountainHeroState?.cleanup();
+  if (documentWithState.__savalanMountainHeroState?.pageLoadHandler) {
+    document.removeEventListener('astro:page-load', documentWithState.__savalanMountainHeroState.pageLoadHandler);
+  }
+
+  const pageLoadHandler = () => {
+    documentWithState.__savalanMountainHeroState?.cleanup();
+
+    const hero = document.querySelector<HTMLElement>('[data-mountain-hero]');
+    const phases = hero ? Array.from(hero.querySelectorAll<HTMLElement>('[data-hero-phase]')) : [];
+    const final = hero?.querySelector<HTMLElement>('[data-hero-final]');
+    const join = hero?.querySelector<HTMLElement>('[data-hero-join]');
+    const timers: number[] = [];
+
+    if (!hero || !phases.length || !final) return;
+
+    const reset = () => {
+      hero.classList.remove('is-final');
+      phases.forEach((item) => item.classList.add('opacity-0'));
+      if (join) join.style.animation = 'none';
+    };
+
+    const cleanup = () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+      reset();
+    };
+
+    reset();
     const showFinal = () => {
       hero.classList.add('is-final');
       phases.forEach((item) => item.classList.add('opacity-0'));
+      if (join) {
+        join.style.animation = '';
+      }
     };
 
-    if (reduceMotion) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       showFinal();
     } else {
       phases.forEach((item, index) => {
-        window.setTimeout(() => item.classList.remove('opacity-0'), index * 2500);
-        window.setTimeout(() => item.classList.add('opacity-0'), index * 2500 + 1800);
+        timers.push(window.setTimeout(() => item.classList.remove('opacity-0'), index * 2500));
+        timers.push(window.setTimeout(() => item.classList.add('opacity-0'), index * 2500 + 1800));
       });
-      window.setTimeout(showFinal, 7500);
+      timers.push(window.setTimeout(showFinal, 7500));
     }
-  }
+
+    documentWithState.__savalanMountainHeroState = { cleanup, pageLoadHandler };
+  };
+
+  document.addEventListener('astro:page-load', pageLoadHandler);
+  documentWithState.__savalanMountainHeroState = {
+    cleanup: () => undefined,
+    pageLoadHandler,
+  };
 </script>
