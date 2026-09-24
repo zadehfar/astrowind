@@ -36,7 +36,43 @@ const cards = [
       </p>
     </div>
 
-    <div class="flex min-h-[34rem] flex-col gap-4 md:h-[38rem] md:flex-row" role="list">
+    <div class="grid grid-cols-2 gap-4 md:hidden" role="list" aria-label="Impact areas">
+      {
+        cards.map((card, index) => (
+          <a
+            class="features-grid__mobile-card relative flex h-72 flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 p-5 text-white opacity-0 shadow-xl motion-safe:animate-[features-grid-rise_700ms_ease-out_both] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            style={`--card-delay: ${index * 200}ms`}
+            href={card.href}
+            role="listitem"
+          >
+            <img
+              class="absolute inset-0 h-full w-full object-cover opacity-60"
+              src={defaultImage.src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <span
+              class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-900/20 to-slate-950/60"
+              aria-hidden="true"
+            />
+            <span class="relative text-2xl font-semibold tracking-tight">{card.title}</span>
+            <span
+              class="relative ml-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-3xl text-white"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div
+      class="hidden min-h-[34rem] flex-col gap-4 md:flex md:h-[38rem] md:flex-row"
+      role="list"
+      aria-label="Impact areas"
+    >
       {
         cards.map((card, index) => (
           <article
@@ -108,7 +144,8 @@ const cards = [
 </section>
 
 <style>
-  [data-features-grid] [data-feature-card] {
+  [data-features-grid] [data-feature-card],
+  [data-features-grid] .features-grid__mobile-card {
     animation-delay: var(--card-delay);
   }
 
@@ -133,18 +170,9 @@ const cards = [
     }
   }
 
-  @media (max-width: 767px) {
-    [data-feature-card].is-active {
-      flex: 1 1 auto;
-    }
-
-    [data-feature-card].is-active .features-grid__trigger {
-      min-height: 12rem;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    [data-features-grid] [data-feature-card] {
+    [data-features-grid] [data-feature-card],
+    [data-features-grid] .features-grid__mobile-card {
       animation: none;
       opacity: 1;
     }
