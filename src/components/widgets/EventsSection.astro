@@ -116,7 +116,7 @@ const eventGroups = [
 ];
 ---
 
-<section class="bg-[#1b1622] px-5 py-16 text-white md:px-8 md:py-24" aria-labelledby="events-title" data-events-section>
+<section class="bg-[#0a1b2a] px-5 py-16 text-white md:px-8 md:py-24" aria-labelledby="events-title" data-events-section>
   <div class="mx-auto max-w-7xl">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
       <h2 id="events-title" class="text-4xl font-bold tracking-tight md:text-5xl">Events</h2>
@@ -125,7 +125,7 @@ const eventGroups = [
         {
           eventGroups.map((group, index) => (
             <button
-              class="events-tab relative pb-3 text-lg font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-[#ff3366] after:transition-transform hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366] focus-visible:ring-offset-4 focus-visible:ring-offset-[#1b1622] data-[active=true]:after:scale-x-100"
+              class="events-tab relative pb-3 text-lg font-semibold transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-[#ff3366] after:transition-transform hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0a1b2a] data-[active=true]:after:scale-x-100"
               type="button"
               role="tab"
               aria-selected={index === 0 ? 'true' : 'false'}
@@ -166,7 +166,7 @@ const eventGroups = [
                         alt=""
                         loading="lazy"
                       />
-                      <span class="absolute bottom-0 left-0 bg-[#1b1622] px-3 py-2 text-xs font-bold tracking-wide text-white">
+                      <span class="absolute bottom-0 left-0 bg-[#0a1b2a] px-3 py-2 text-xs font-bold tracking-wide text-white">
                         {event.category}
                       </span>
                     </div>
@@ -190,7 +190,7 @@ const eventGroups = [
 
             <div class="mt-8 flex justify-end gap-3">
               <button
-                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#1b1622] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
+                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#0a1b2a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
                 type="button"
                 aria-label={`Previous ${group.label.toLowerCase()}`}
                 data-events-prev
@@ -198,7 +198,7 @@ const eventGroups = [
                 ←
               </button>
               <button
-                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#1b1622] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
+                class="events-nav inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-2xl transition hover:border-white hover:bg-white hover:text-[#0a1b2a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]"
                 type="button"
                 aria-label={`Next ${group.label.toLowerCase()}`}
                 data-events-next
