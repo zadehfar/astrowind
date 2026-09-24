@@ -43,6 +43,30 @@ const cards = [
       </p>
     </div>
 
+    <div
+      class="invisible mx-auto mb-10 max-w-4xl opacity-0 transition-opacity duration-700 ease-in-out pointer-events-none"
+      data-feature-search
+    >
+      <label class="sr-only" for="impact-area-search">Search impact areas</label>
+      <div class="relative">
+        <input
+          id="impact-area-search"
+          class="h-16 w-full rounded-lg border-0 bg-slate-50 px-6 text-lg text-slate-900 shadow-sm outline-none ring-1 ring-slate-200 transition focus:ring-2 focus:ring-primary dark:bg-white dark:text-slate-900"
+          type="search"
+          placeholder="What can we help you find?"
+          autocomplete="off"
+          data-feature-search-input
+        />
+        <span
+          class="pointer-events-none absolute inset-y-0 left-6 flex items-center text-lg text-slate-500 transition-opacity duration-500"
+          aria-hidden="true"
+          data-feature-search-placeholder
+        >
+          What can we help you find?
+        </span>
+      </div>
+    </div>
+
     <div class="grid grid-cols-2 gap-4 md:hidden" role="list" aria-label="Impact areas">
       {
         cards.map((card, index) => (
@@ -201,6 +225,62 @@ const cards = [
     const cleanups: Array<() => void> = [];
 
     if (!grid || !cards.length) return;
+
+    const search = grid.querySelector<HTMLElement>('[data-feature-search]');
+    const searchInput = search?.querySelector<HTMLInputElement>('[data-feature-search-input]');
+    const searchPlaceholder = search?.querySelector<HTMLElement>('[data-feature-search-placeholder]');
+    const questions = [
+      'What can we help you find?',
+      'How can I develop my leadership skills?',
+      'Where can I read the latest policy frameworks?',
+      'How do I start a volunteer grassroots campaign?',
+      'What strategies drive sustainable economic growth?',
+      'Where can I find ethical tech standards?',
+      'How do we build platforms for civic action?',
+      'What are the best practices for financial empowerment?',
+      'How can I advocate for equitable policies?',
+      'Where are the latest community impact reports?',
+    ];
+    let searchTimer: number | undefined;
+    let rotationTimer: number | undefined;
+    let searchStopped = false;
+
+    const stopSearchRotation = () => {
+      searchStopped = true;
+      if (searchTimer) window.clearTimeout(searchTimer);
+      if (rotationTimer) window.clearTimeout(rotationTimer);
+      searchPlaceholder?.classList.add('opacity-0');
+    };
+
+    if (search && searchInput && searchPlaceholder) {
+      let questionIndex = 0;
+      const rotateQuestion = () => {
+        if (searchStopped) return;
+        searchPlaceholder.classList.add('opacity-0');
+        rotationTimer = window.setTimeout(() => {
+          questionIndex = (questionIndex + 1) % questions.length;
+          searchPlaceholder.textContent = questions[questionIndex];
+          searchPlaceholder.classList.remove('opacity-0');
+          rotationTimer = window.setTimeout(rotateQuestion, 2600);
+        }, 600);
+      };
+
+      searchTimer = window.setTimeout(() => {
+        if (searchStopped) return;
+        search.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
+        search.classList.add('visible', 'opacity-100', 'pointer-events-auto');
+        rotationTimer = window.setTimeout(rotateQuestion, 2600);
+      }, 3000);
+
+      const onSearchInteraction = () => stopSearchRotation();
+      searchInput.addEventListener('focus', onSearchInteraction);
+      searchInput.addEventListener('input', onSearchInteraction);
+      cleanups.push(() => {
+        stopSearchRotation();
+        searchInput.removeEventListener('focus', onSearchInteraction);
+        searchInput.removeEventListener('input', onSearchInteraction);
+      });
+    }
 
     const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
     const closeAll = () => {
