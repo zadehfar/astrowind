@@ -1,19 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '~/assets/images/Savalan main .png';
+---
+
 <section
   class="relative isolate min-h-[min(820px,100svh)] overflow-hidden bg-slate-950"
   aria-labelledby="mountain-hero-title"
   data-mountain-hero
 >
-  <img
-    class="absolute inset-0 z-0 h-full w-full object-cover pointer-events-none"
-    src="/assets/images/Savalan M.jpg"
-    alt=""
+  <Image
+    class="absolute inset-0 z-0 h-full w-full object-cover object-center pointer-events-none"
+    src={heroImg}
+    alt="Savalan Institute outdoor community gathering with mountain backdrop"
     loading="eager"
     fetchpriority="high"
-    aria-hidden="true"
   />
 
+  <div class="absolute inset-0 z-10 bg-black/30" aria-hidden="true"></div>
+
   <div
-    class="relative z-10 grid min-h-[min(820px,100svh)] place-items-center px-6 pb-16 pt-28 text-center font-sans text-white"
+    class="relative z-20 grid min-h-[min(820px,100svh)] place-items-center px-6 pb-16 pt-28 text-center font-sans text-white"
   >
     <div class="relative grid w-full place-items-center">
       <div class="absolute inset-0 grid place-items-center" aria-live="polite">
