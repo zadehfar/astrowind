@@ -7,7 +7,7 @@ const cards = [
     headline: 'Develop effective communication and grassroots mentoring to guide communities forward.',
     href: '/services',
     cta: 'Explore Leadership',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&h=1200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
     items: ['Public Speaking', 'Mentorship', 'Team Building'],
   },
   {
@@ -15,7 +15,7 @@ const cards = [
     headline: 'Advocate for robust ethical oversight and equitable standards in emerging technologies.',
     href: '/about',
     cta: 'Explore Policy',
-    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&h=1200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
     items: ['Ethical Frameworks', 'Tech Standards', 'Civic Guidelines'],
   },
   {
@@ -23,7 +23,7 @@ const cards = [
     headline: 'Mobilize volunteer campaigns and build platforms for direct civic action.',
     href: '/contact',
     cta: 'Explore Change',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&h=1200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
     items: ['Volunteer Drives', 'Event Organizing', 'Grassroots Initiatives'],
   },
   {
@@ -31,7 +31,7 @@ const cards = [
     headline: 'Drive sustainable economic growth and financial empowerment.',
     href: '/services',
     cta: 'Explore Economy',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&h=1200&fit=crop',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
     items: ['Economic Development', 'Job Creation', 'Financial Literacy'],
   },
 ];
@@ -85,6 +85,7 @@ const cards = [
             href={card.href}
             role="listitem"
           >
+            <span class="features-grid__image-overlay absolute inset-0" aria-hidden="true" />
             <span class="relative z-10 break-words text-lg font-semibold tracking-tight hyphens-auto">
               {card.title}
             </span>
@@ -112,11 +113,14 @@ const cards = [
             data-feature-card
             role="listitem"
           >
-            <span
-              class="features-grid__image-panel absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 ease-in-out"
-              style={`background-image: url('${card.image}')`}
+            <img
+              class="features-grid__image-panel absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 ease-in-out"
+              src={card.image}
+              alt=""
+              loading={index === 0 ? 'eager' : 'lazy'}
               aria-hidden="true"
             />
+            <span class="features-grid__image-overlay absolute inset-0" aria-hidden="true" />
             <button
               class="features-grid__trigger relative z-10 flex min-h-80 w-full flex-col justify-between bg-transparent p-6 text-left text-shadow-lg transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:p-8"
               type="button"
@@ -185,6 +189,17 @@ const cards = [
   [data-features-grid] [data-feature-card],
   [data-features-grid] .features-grid__mobile-card {
     animation-delay: var(--card-delay);
+  }
+
+  [data-features-grid] .features-grid__image-overlay {
+    z-index: 1;
+    background: linear-gradient(to bottom, rgb(0 0 0 / 0.6), transparent);
+    pointer-events: none;
+  }
+
+  [data-features-grid] .features-grid__image-panel {
+    object-fit: cover;
+    object-position: center;
   }
 
   [data-feature-card].is-active {
