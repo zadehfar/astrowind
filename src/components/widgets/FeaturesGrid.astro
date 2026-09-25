@@ -85,10 +85,6 @@ const cards = [
             href={card.href}
             role="listitem"
           >
-            <span
-              class="features-grid__overlay absolute inset-0 bg-[#034a75]/80 mix-blend-multiply transition-all duration-300"
-              aria-hidden="true"
-            />
             <span class="relative z-10 break-words text-lg font-semibold tracking-tight hyphens-auto">
               {card.title}
             </span>
@@ -117,12 +113,12 @@ const cards = [
             role="listitem"
           >
             <span
-              class="features-grid__image-panel absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 ease-in-out"
+              class="features-grid__image-panel absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
               style={`background-image: url('${card.image}')`}
               aria-hidden="true"
             />
             <button
-              class="features-grid__trigger relative z-10 flex min-h-80 w-full flex-col justify-between bg-[#034a75]/70 p-6 text-left transition-all duration-500 hover:bg-[#034a75]/55 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:w-full md:shrink-0 md:p-8"
+              class="features-grid__trigger relative z-10 flex min-h-80 w-full flex-col justify-between bg-transparent p-6 text-left text-shadow-lg transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary md:min-h-0 md:p-8"
               type="button"
               aria-expanded="false"
               data-feature-trigger
@@ -191,12 +187,8 @@ const cards = [
     animation-delay: var(--card-delay);
   }
 
-  [data-features-grid] .features-grid__mobile-card:hover .features-grid__overlay {
-    background-color: rgb(3 74 117 / 50%);
-  }
-
   [data-feature-card].is-active {
-    flex: 3 1 0%;
+    flex: 1 1 auto;
   }
 
   [data-feature-card].is-active .features-grid__image-panel {
@@ -204,12 +196,14 @@ const cards = [
   }
 
   [data-feature-card].is-active .features-grid__trigger {
+    flex: 0 0 50%;
     width: 50%;
     background-color: transparent;
   }
 
   [data-feature-card].is-active .features-grid__panel {
-    flex-basis: 50%;
+    flex: 0 0 50%;
+    margin-left: 0;
   }
 
   [data-feature-card].is-active .features-grid__panel {
@@ -219,12 +213,15 @@ const cards = [
 
   @media (min-width: 768px) {
     [data-features-grid] .features-grid__card {
-      flex: 1 1 0%;
-      transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+      flex: 0 0 25%;
+      min-width: 0;
+      transition:
+        flex-basis 700ms cubic-bezier(0.25, 1, 0.5, 1),
+        width 700ms cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     [data-features-grid] .features-grid__desktop.has-active .features-grid__card:not(.is-active) {
-      flex: 0 0 5%;
+      flex: 0 0 10%;
     }
 
     [data-features-grid]
@@ -232,6 +229,8 @@ const cards = [
       .features-grid__card:not(.is-active)
       .features-grid__trigger {
       width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
       padding-inline: 0.5rem;
     }
 
@@ -240,7 +239,9 @@ const cards = [
       .features-grid__card:not(.is-active)
       .features-grid__trigger
       > span {
-      display: none;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      align-self: center;
     }
 
     [data-features-grid]
