@@ -1,81 +1,123 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
-import Features2 from '~/components/widgets/Features2.astro';
 
 const metadata = {
-  title: 'Contact',
+  title: 'Be an insider | Savalan Institute',
   description:
-    'Contact page demo built with AstroWind: a form, contact details and support links in one accessible layout.',
+    'Sign up for updates on policy research, civic leadership programs, events, and insights from Savalan Institute.',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <section class="bg-[#f7f6f2] px-6 py-12 text-gray-900 md:px-16 md:py-20" aria-labelledby="insider-title">
+    <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:gap-20 lg:gap-28">
+      <div class="flex flex-col justify-start md:pt-2">
+        <h1 id="insider-title" class="max-w-xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+          Be an insider
+        </h1>
+        <p class="mt-8 max-w-xl font-serif text-2xl leading-relaxed md:text-3xl">
+          Sign up to receive the latest updates on policy research, civic leadership programs, upcoming event
+          announcements, and inspiring insights from Savalan Institute.
+        </p>
+      </div>
 
-  <HeroText tagline="Contact" title="Let's Connect!" />
+      <form class="flex flex-col gap-7" method="post" action="/contact/" aria-label="Savalan Institute updates signup">
+        <div>
+          <label class="block text-xl font-bold tracking-tight" for="first-name">
+            First name <span aria-hidden="true">*</span>
+          </label>
+          <input
+            class="mt-2 block w-full border-0 border-b border-gray-900 bg-transparent px-0 py-3 text-lg outline-none transition focus:border-black focus:ring-0"
+            id="first-name"
+            name="first_name"
+            type="text"
+            autocomplete="given-name"
+            required
+          />
+        </div>
 
-  <ContactUs
-    id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
-    }}
-    description="Our support team typically responds within 24 business hours."
-  />
+        <div>
+          <label class="block text-xl font-bold tracking-tight" for="last-name">
+            Last name <span aria-hidden="true">*</span>
+          </label>
+          <input
+            class="mt-2 block w-full border-0 border-b border-gray-900 bg-transparent px-0 py-3 text-lg outline-none transition focus:border-black focus:ring-0"
+            id="last-name"
+            name="last_name"
+            type="text"
+            autocomplete="family-name"
+            required
+          />
+        </div>
 
-  <!-- Features2 Widget ************** -->
+        <div>
+          <label class="block text-xl font-bold tracking-tight" for="email">
+            Email <span aria-hidden="true">*</span>
+          </label>
+          <input
+            class="mt-2 block w-full border-0 border-b border-gray-900 bg-transparent px-0 py-3 text-lg outline-none transition focus:border-black focus:ring-0"
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
 
-  <Features2
-    title="We are here to help!"
-    items={[
-      {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+        <div>
+          <label class="block text-xl font-bold tracking-tight" for="zip-code">
+            Zip Code <span class="font-normal">(optional)</span>
+          </label>
+          <input
+            class="mt-2 block w-full border-0 border-b border-gray-900 bg-transparent px-0 py-3 text-lg outline-none transition focus:border-black focus:ring-0"
+            id="zip-code"
+            name="zip_code"
+            type="text"
+            autocomplete="postal-code"
+            inputmode="numeric"
+          />
+        </div>
+
+        <div>
+          <label class="block text-xl font-bold tracking-tight" for="phone">
+            Phone number <span class="font-normal">(optional)</span>
+          </label>
+          <input
+            class="mt-2 block w-full border-0 border-b border-gray-900 bg-transparent px-0 py-3 text-lg outline-none transition focus:border-black focus:ring-0"
+            id="phone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+          />
+        </div>
+
+        <p class="text-sm leading-relaxed text-gray-600">
+          By providing your contact details, you consent to receive updates, program announcements, and communications
+          from Savalan Institute. Message frequency varies. You may opt out at any time.
+        </p>
+
+        <label class="flex items-start gap-4 text-base font-semibold leading-relaxed">
+          <input
+            class="mt-1 h-5 w-5 shrink-0 rounded-none border border-gray-900 bg-transparent text-gray-900 accent-gray-900 focus:ring-0"
+            name="terms"
+            type="checkbox"
+            required
+          />
+          <span>
+            Yes, I agree to the
+            <a class="underline underline-offset-2 hover:no-underline" href="/terms/">Terms of Service</a>
+            and
+            <a class="underline underline-offset-2 hover:no-underline" href="/privacy/">Privacy Policy</a>.
+          </span>
+        </label>
+
+        <button
+          class="mt-2 w-full border border-gray-900 bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-wide transition-colors hover:bg-gray-900 hover:text-white md:ml-auto md:w-fit"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </section>
 </Layout>
