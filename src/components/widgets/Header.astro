@@ -63,14 +63,20 @@ const persistKey = `header-${Array.from(
       ]}
     >
       <a
-        class="flex aspect-square h-12 w-12 items-center justify-center transition-opacity hover:opacity-80 md:h-14 md:w-14"
+        class="flex h-8 w-auto items-center transition-opacity hover:opacity-85 md:h-10"
         href={getHomePermalink()}
         aria-label="Savalan Institute home"
       >
         <img
-          class="h-full w-full object-contain"
-          src="/assets/C1EA652A-22B5-4520-9997-602140875033_1_201_a.jpeg"
-          alt="Savalan Institute Eagle Rock badge"
+          class="h-full w-auto object-contain dark:hidden"
+          src="/assets/savalan-wordmark.png"
+          alt="Savalan Institute"
+        />
+        <img
+          class="hidden h-full w-auto object-contain dark:block"
+          src="/assets/savalan-wordmark-dark.png"
+          alt=""
+          aria-hidden="true"
         />
       </a>
       <nav class="hidden flex-1 justify-center lg:flex" aria-label="Main navigation">
